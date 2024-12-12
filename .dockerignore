@@ -1,0 +1,14 @@
+.git
+.env
+.env.example
+.gitignore
+.gitattributes
+README.md
+storage/*.key
+vendor
+node_modules
+docker
+.docker
+Dockerfile
+docker-compose.yml
+*.log

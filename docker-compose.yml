@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - PHP_VERSION=8.2
+    container_name: laravel_search_app
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+      - ./vendor:/var/www/html/vendor
+    environment:
+      - APP_ENV=development
+      - APP_DEBUG=true
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - app_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+networks:
+  app_network:
+    driver: bridge
